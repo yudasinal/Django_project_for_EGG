@@ -1,0 +1,9 @@
+{% if latest_department_list %}
+    <ul>
+    {% for department in latest_department_list %}
+        <li><a href="/logins/{{ department.id }}/">{{ department.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No departments are available.</p>
+{% endif %}
