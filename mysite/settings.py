@@ -26,6 +26,10 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_DIRS = (
+    '/Users/yudasinal1/documents/django/egg/mysite/logins/templates'
+)
+
 
 # Application definition
 
@@ -36,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'logins',
+    'south',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -45,6 +51,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 )
 
 ROOT_URLCONF = 'mysite.urls'
@@ -67,7 +74,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'CET'
 
 USE_I18N = True
 
