@@ -1,4 +1,4 @@
-sfrom django.db import models
+from django.db import models
 
 class Department(models.Model):
     name = models.CharField(max_length=200)
@@ -11,7 +11,7 @@ class Game(models.Model):
     def __unicode__(self):  
         return self.name_of_the_game
 
-"""Add the pub_date option"""
+
 
 
 
