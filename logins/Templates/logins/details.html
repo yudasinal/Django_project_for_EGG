@@ -1,0 +1,10 @@
+{% if info_details %}
+    <ul>
+    {% for info in info_details %}
+        <li>{{ info.user_name }}</li>
+        <li>{{ info.password }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No information is available.</p>
+{% endif %}

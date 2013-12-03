@@ -6,6 +6,7 @@ from django.template import RequestContext, loader
 
 from logins.models import Department
 
+
 def login_user(request):
     state = "Please log in below..."
     username = password = ''
@@ -23,7 +24,8 @@ def login_user(request):
         else:
             state = "Your username and/or password were incorrect."
 
-    return render_to_response('auth.html',{'state':state, 'username': username})
+    return render_to_response('auth.html',{'state':state, 'username': username},
+                                 context_instance=RequestContext(request))
 
 
 def index(request):
