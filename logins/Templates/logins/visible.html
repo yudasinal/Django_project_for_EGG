@@ -1,0 +1,10 @@
+{% if visible %}
+    <ul>
+    {% for info in visible %}
+        <li><a href="/logins/{{ info.id }}/">{{ info.company_name}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No infos are available.</p>
+{% endif %}
+
