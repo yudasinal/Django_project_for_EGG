@@ -1,34 +1,36 @@
 from django.contrib import admin
-from logins.models import Department, Game
+from logins.models import *
 
-class GameInline(admin.StackedInline):
-    model = Game
+class InfoInline(admin.StackedInline):
+    model = Info.game.through
     extra = 1
-    '''
-    def game_namagame(object):
-     return object.game.namegame
-    '''
 
+class InfoDInline(admin.StackedInline):
+    model = Info.department.through
+    extra = 1
 
+class CustomUserAdmin(admin.ModelAdmin): 
+    list_display = ('first_name', 'last_name', 'department', 'game')   #How to display ManyToMany? list_display does not handle it
+admin.site.register(CustomUser, CustomUserAdmin)
+
+'''
 class DepartmentAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['name']}),
     ]
-    inlines = [GameInline]
-
-    '''
-    list_display = ['game_namegame',]
-    '''
+    inlines = [InfoInline]
      
     list_filter = ['name']
     search_fields = ['name']
+'''
 
-    '''
-    def name_of_the_game(self):
-        return self.game.name_of_the_game
-    '''
+class InfoAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,              {'fields':['organization_name', 'user_name', 'password']}),
+    ]
+    inlines = [InfoInline, InfoDInline]
 
-
-admin.site.register(Department, DepartmentAdmin)
+admin.site.register(Department)
 admin.site.register(Game)
+admin.site.register(Info, InfoAdmin)
 
