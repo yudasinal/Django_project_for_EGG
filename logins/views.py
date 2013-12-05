@@ -8,6 +8,7 @@ from logins.models import Department, Info, Game, CustomUser
 from django.contrib.auth.models import User, UserManager
 
 '''
+#THIS VIEW SHOULD REPLACE THE CURRENT INDEX VIEW, BUT USER SHOULD FIRST BE GIVEN DEPARTMENT AND GAME
 #VIEW THAT GIVES ACCESS TO THE INFO THAT THE USER IS PART OF
 def visible_info(request):
     visible = Info.objects.filter(department__in=customuser.departments.all(), game__in=customuser.games.all())
@@ -27,8 +28,9 @@ def index(request):
     })
     return HttpResponse(template.render(context))
 
+#VIEW TO DISPLAY THE NAME AND THE PASSWORD OF THE Info
 def detail(request, info_id):
-    info_details = Info.objects.all()
+    info_details = Info.objects.get(id = info_id)
     template = loader.get_template('logins/details.html')
     context = RequestContext(request, {
         'info_details': info_details,
