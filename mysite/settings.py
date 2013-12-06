@@ -13,9 +13,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/logins'
 
-AUTHENTICATION_BACKENDS = (
-    'logins.auth_backends.CustomUserModelBackend',
-)
 CUSTOM_USER_MODEL = 'accounts.CustomUser'
 
 # Quick-start development settings - unsuitable for production
