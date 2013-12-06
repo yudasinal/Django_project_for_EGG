@@ -22,10 +22,11 @@ class Info(models.Model):
 		 return self.organization_name+ ': '+ 'user name: ' +self.user_name+ ', '+ 'password: ' + self.password
 
 
-class CustomUser(User):
+class CustomUser(models.Model):
 	department = models.ManyToManyField(Department)
 	game = models.ManyToManyField(Game)
-	objects = UserManager()
+	user = models.OneToOneField(User)
+
 
 
 
