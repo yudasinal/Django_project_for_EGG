@@ -1,70 +1,71 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
-from django.shortcuts import render_to_response, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render_to_response
 from django.template import RequestContext, loader
-from django.contrib.auth.forms import AuthenticationForm
-from .forms import LoginForm
+from forms import InfoForm
+from django.core.context_processors import csrf
+from django.contrib import messages 
+from forms import MyRegistrationForm
+from django.contrib.auth.decorators import login_required
+
 
 from logins.models import Department, Info, Game, CustomUser
+from django.contrib.auth.models import User, UserManager
 
-'''
+
 #THIS VIEW SHOULD REPLACE THE CURRENT INDEX VIEW, BUT USER SHOULD FIRST BE GIVEN DEPARTMENT AND GAME
 #VIEW THAT GIVES ACCESS TO THE INFO THAT THE USER IS PART OF
-def visible_info(request):
-    visible = Info.objects.filter(department__in=customuser.departments.all(), game__in=customuser.games.all())
-    context = RequestContext(request, {
-        'visible': visible,
-    })
-    template = loader.get_template('logins/index.html')
-    return HttpResponse(template.render(context)) 
 
-'''
-def login(request, template_name='login.html'):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.login(request):
-            return redirect('/logins')
-    else:
-        form = LoginForm()
-    return render_to_response(template_name, {'form': form,}, RequestContext(request))
-
-
-'''
-def login(request):
-    email = ''
-    password = ''
-    state = "Please login below: "
-
-    form = AuthenticationForm(data=(request.POST or None))
-
-    if form.is_valid():
-        # Since the USERNAME_FIELD in custom-user is the email, that is what
-        # we expect as input to the username field of this form
-        email = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-
-        user = authenticate(username=email,password=password)
-
-        if user is not None and user.is_active:
-            login(request, login)
-            state = "You have been logged in"
-        else:
-            state = "Invalid login credentials"
-
-    t = loader.get_template('login.html')
-    c = RequestContext(request, {'state': state, 'form': form})
-    return HttpResponse(t.render(c))
-'''
-
-#VIEW TO GIVE ALL INFO IN THE DATABASE
+@login_required()
 def index(request):
-    info_list = Info.objects.all().order_by('-organization_name')[:5]
-    template = loader.get_template('logins/index.html')
+    u = request.user
+    custom_user = CustomUser.objects.get(user=u)
+    info_list =Info.objects.filter(game__in=custom_user.game.all(), department__in = custom_user.department.all())
+    #visible = Info.objects.filter(department__in=customuser.departments.all(), game__in=customuser.games.all())
     context = RequestContext(request, {
         'info_list': info_list,
     })
-    return HttpResponse(template.render(context))
+    template = loader.get_template('logins/index.html')
+    return HttpResponse(template.render(context)) 
+    
+
+def logout(request):
+    auth.logout(request)
+    return render_to_response('logout.html')
+
+def register_user(request):
+    if request.method == 'POST':
+        form = MyRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/logins/register_success')
+        
+    else:
+        form = MyRegistrationForm()
+    args = {}
+    args.update(csrf(request))
+    
+    args['form'] = form
+    
+    return render_to_response('logins/register.html', args)
+
+def register_success(request):
+    return render_to_response('logins/register_success.html')
+
+'''
+#VIEW TO GIVE ALL INFO IN THE DATABASE
+def index(request):
+    #if user_logged_in:
+        info_list = Info.objects.all().order_by('-organization_name')[:100]
+        template = loader.get_template('logins/index.html')
+        context = RequestContext(request, {
+            'info_list': info_list,
+        })
+        return HttpResponse(template.render(context))
+    #else:
+        #return HttpResponse('<h1>You must login</h1>')
+'''
 
 #VIEW TO DISPLAY THE NAME AND THE PASSWORD OF THE Info
 def detail(request, info_id):
@@ -74,6 +75,25 @@ def detail(request, info_id):
         'info_details': info_details,
         })
     return HttpResponse(template.render(context))
+
+def create(request):
+    if request.POST:
+        form = InfoForm(request.POST, request.FILES)
+        if form.is_valid():
+            a = form.save()
+        
+            messages.add_message(request, messages.SUCCESS, "You Information was added")
+            
+            return HttpResponseRedirect('/logins')
+    else:
+        form = InfoForm()
+        
+    args = {}
+    args.update(csrf(request))
+    
+    args['form'] = form
+    
+    return render_to_response('logins/create_info.html', args)
 
 '''
 def detail(request, department_id):
