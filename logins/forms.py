@@ -1,45 +1,41 @@
 from django import forms
-from django.contrib.auth import authenticate, login
-from django.utils.translation import ugettext_lazy as _
+from models import Info, CustomUser
+from django.contrib.auth.models import User, UserManager
+from django.contrib.auth.forms import UserCreationForm
 
-from .models import *
+class InfoForm(forms.ModelForm):  
+
+    class Meta:
+        model = Info
+        fields = ('organization_name', 'url', 'user_name', 'password', 'comments', 'department', 'game')
 
 
+#CAN'T ADD GAME AND DEPARTMENT :(   
+class MyRegistrationForm(UserCreationForm):         
+    email = forms.EmailField(required=True)
+    first_name = forms.CharField(max_length = '200')
+    last_name = forms.CharField(max_length = '200')
+    
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'email')
 
-class LoginForm(forms.Form):
-    """
-    Base class for authenticating users. Extend this to get a form that accepts
-    username/password logins.
-    """
-    email = forms.EmailField(label=_("Email"))
-    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
-    user = None
+    '''    
+    def save(self, commit=True):
+        user = super(MyRegistrationForm, self).save(commit=False)
+        user.username = self.cleaned_data['username']
+        user.first_name = self.cleaned_data['first_name']       
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+        user.department = self.cleaned_data['department']
+        user.set_password(self.cleaned_data['password1'])
 
-    error_messages = {
-        'invalid_login': _("Please enter a correct %(username)s and password. "
-                           "Note that both fields may be case-sensitive."),
-        'no_cookies': _("Your Web browser doesn't appear to have cookies "
-                        "enabled. Cookies are required for logging in."),
-        'inactive': _("This account is inactive."),
-        }
 
-    def clean(self):
-        email = self.cleaned_data.get('email')
-        password = self.cleaned_data.get('password')
+    if commit:
+        user.save()
+            
+        return user
 
-        if email and password:
-            user = authenticate(username=self.data['email'],
-                                password=self.data['password'])
-            if user is not None:
-                if user.is_active:
-                    self.user = user
-                else:
-                    raise forms.ValidationError(_("This account is currently inactive."))
-            else:
-                raise forms.ValidationError(_("The user name and password you supplied is not valid."))
+    '''
 
-    def login(self, request):
-        if self.is_valid():
-            login(request, self.user)
-            return True
-        return False
+    
