@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'logins',
     'south',
+    'bootstrap_toolkit',
 )
 
 MIDDLEWARE_CLASSES = (
