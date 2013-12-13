@@ -1,9 +1,39 @@
-<html>
+{% extends "base.html" %}
+
+    
+   
+
+{% block content %}
+
+<style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+
+        .container {
+            width: 400px;
+            margin: 0 auto;
+        }
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+    </style>
 <body>
+	<div class = "container">
     {{ state }}
-    <form action="" method="post">{% csrf_token %}
+    <form class = "form-signin" role = "form" action="" method="post">{% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Login">
+        <input type="submit" value="Login" class="btn btn-default">
+
     </form>
+    <p>If you are a new user and would like to register, please click <a href="/logins/register/">here</a></p>
+	</div>
 </body>
+
+{% endblock %}
 </html>
+
+
+

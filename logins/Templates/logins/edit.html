@@ -22,22 +22,19 @@
     {% block extra_head %}{% endblock %}
 </head>
 
-{% block content %}
-  
-  <h2>Register</h2>
-  
-  {% for field in form %}
-    {{field.error}}
 
-  {% endfor %}
-  
-  <form class="form-{{ layout }}" action="" method="post">{% csrf_token %}
-  {{form}}
-  
-  <input type="submit" value="Register" class="btn btn-primary" />
-    
-  </form>
-  
+
+{% block sidebar %}
+<ul>
+    <li><a href="/logins">Cancel</a></li>
+</ul>
 {% endblock %}
 
+{% block content %}
 
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update" />
+</form>
+
+{% endblock %}

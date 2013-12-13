@@ -9,6 +9,11 @@ class InfoForm(forms.ModelForm):
         model = Info
         fields = ('organization_name', 'url', 'user_name', 'password', 'comments', 'department', 'game')
 
+class EditInfo(forms.ModelForm):  
+
+    class Meta:
+        model = Info
+        fields = ('organization_name', 'url', 'user_name', 'password', 'comments', 'department', 'game')
 
 #CAN'T ADD GAME AND DEPARTMENT :(   
 class MyRegistrationForm(UserCreationForm):         

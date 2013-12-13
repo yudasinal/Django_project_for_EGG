@@ -14,7 +14,7 @@ class InfoDInline(admin.StackedInline):
 
 class InfoAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,              {'fields':['organization_name', 'user_name', 'password']}),
+        (None,              {'fields':['organization_name', 'url', 'user_name', 'password', 'comments']}),
     ]
     inlines = [InfoInline, InfoDInline]
 
@@ -51,9 +51,4 @@ class DepartmentAdmin(admin.ModelAdmin):
     list_filter = ['name']
     search_fields = ['name']
 '''
-
-
-
-
-
 

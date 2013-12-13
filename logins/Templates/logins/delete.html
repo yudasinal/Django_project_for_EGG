@@ -22,22 +22,12 @@
     {% block extra_head %}{% endblock %}
 </head>
 
+
 {% block content %}
-  
-  <h2>Register</h2>
-  
-  {% for field in form %}
-    {{field.error}}
 
-  {% endfor %}
-  
-  <form class="form-{{ layout }}" action="" method="post">{% csrf_token %}
-  {{form}}
-  
-  <input type="submit" value="Register" class="btn btn-primary" />
-    
-  </form>
-  
+
+
+  <h2>You have deleted the {{ info_delete.organization_name }} entry!</h2>
+  <p>Click <a href="/logins">here</a> to go back to the Informations page</p>
+
 {% endblock %}
-
-

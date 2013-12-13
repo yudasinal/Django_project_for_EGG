@@ -1,9 +1,84 @@
-{% if info_details %}
-    <ul>
-        <li>{{ info.user_name }}</li>
-        <li>{{ info.password }}</li>
-        <li>{{ info.department }}</li>
-    </ul>
-{% else %}
-    <p>No information is available.</p>
-{% endif %}
+{% extends "base.html" %}
+
+
+{% load static %}
+
+{% block navbar %} 
+    <li><a href="/logins">Informations</a></li>
+    {% if perms.logins.change_info %}
+        <li><a href="/logins/create">Create Information</a></li>
+        <li><a href="/logout">Logout</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1 align ="center">{{ info_details.organization_name }}</h1>
+    <br>
+    <table class="table table-hover" border = "1">
+
+        <tr>
+            <th>Department</th>   
+            <td>{% for info_details in info_details.department.all %}
+            {{ info_details }}
+            {% endfor %}</td>
+        </tr>
+        <tr>
+            <th>Game</th>   
+            <td>{% for info_details in info_details.game.all %}
+            {{ info_details }}
+            {% endfor %}</td>
+        </tr>
+        {% if info_details.user_name %}
+            <tr>
+                <th>User Name</th>
+                <td>{{ info_details.user_name }}</td>
+            </tr>
+        {% endif %}
+
+        {% if info_details.password %}
+            <tr>
+                <th>Password</th>
+                <td>{{ info_details.password }}</td>
+            </tr>
+        {% endif %}
+
+        {% if info_details.comments %}
+            <tr>
+                <th>Comments</th>
+                <td>{{ info_details.comemnts }}</td>
+            </tr>
+        {% endif %}
+
+        {% if info_details.url %}
+            <tr>
+                <th>Url</th>
+                <td>{{ info_details.url }}</td>
+            </tr>
+        {% endif %}
+    </table>
+
+        <ul>		<!-- Displays bullets, but empty lines -->
+        	
+            <li>{{ info_details.password }}</li>
+            {% for info_details in info_details.department.all %}
+        	<li>{{ info_details }}</li>
+        	{% endfor %}
+            {% for info_details in info_details.game.all %}
+        	<li>{{ info_details }}</li>
+        	{% endfor %}
+        </ul>
+        <br>
+        <p>Go <a href="/logins/">back</a> to the information list</p>
+
+        {% if perms.logins.delete_info %}
+            <p><a href="/logins/{{ info_details.id }}/delete/">Delete</a> this entry</p>
+        {% endif %}
+        {% if perms.logins.change_info %}
+            <p><a href="/logins/{{ info_details.id }}/edit/">Edit</a></p>
+        {% endif %}
+    
+
+{% endblock %}
+
+
+

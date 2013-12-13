@@ -8,6 +8,7 @@ from django.core.context_processors import csrf
 from django.contrib import messages 
 from forms import MyRegistrationForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
 
 
 from logins.models import Department, Info, Game, CustomUser
@@ -29,7 +30,6 @@ def index(request):
     template = loader.get_template('logins/index.html')
     return HttpResponse(template.render(context)) 
     
-
 def logout(request):
     auth.logout(request)
     return render_to_response('logout.html')
@@ -53,20 +53,6 @@ def register_user(request):
 def register_success(request):
     return render_to_response('logins/register_success.html')
 
-'''
-#VIEW TO GIVE ALL INFO IN THE DATABASE
-def index(request):
-    #if user_logged_in:
-        info_list = Info.objects.all().order_by('-organization_name')[:100]
-        template = loader.get_template('logins/index.html')
-        context = RequestContext(request, {
-            'info_list': info_list,
-        })
-        return HttpResponse(template.render(context))
-    #else:
-        #return HttpResponse('<h1>You must login</h1>')
-'''
-
 #VIEW TO DISPLAY THE NAME AND THE PASSWORD OF THE Info
 def detail(request, info_id):
     info_details = Info.objects.get(id = info_id)
@@ -82,7 +68,7 @@ def create(request):
         if form.is_valid():
             a = form.save()
         
-            messages.add_message(request, messages.SUCCESS, "You Information was added")
+            messages.add_message(request, messages.SUCCESS, "Your Information was added")
             
             return HttpResponseRedirect('/logins')
     else:
@@ -95,14 +81,47 @@ def create(request):
     
     return render_to_response('logins/create_info.html', args)
 
+def delete_info(request, info_id):
+    info_delete = Info.objects.get(id = info_id)
+    template = loader.get_template('logins/delete.html')
+    info_delete.delete()
+    context = RequestContext(request, {
+        'info_delete': info_delete,
+        })
+    return HttpResponse(template.render(context))
+
+
+class InfoEdit(UpdateView):
+    model = Info
+    queryset = Info.objects.all()
+
+'''
+#view
+def edit_info(request, info_id):
+    if request.method == 'POST':
+        info = Info.objects.get(id=info_id)
+        form = EditInfo(request.POST,instance=info)
+        if form.is_valid():
+            info = form.save(commit=False)
+            info.user = request.user
+            info.is_active = True
+            info.save()
+            return render_to_response('logins/edit.html', args)
+        else:
+            info = Info.objects.get(id=info_id)
+            form = EditInfo(instance=info )
+            return render_to_response('forsale.html', locals(), context_instance=RequestContext(request))
+
+'''
+
 '''
 def detail(request, department_id):
     return HttpResponse("You're looking at department %s." % department_id)
-'''
+
 
 def games(request, department_id):
     return HttpResponse("You're looking at the games of department %s." % department_id)
-
+'''
 
 '''
 //CUTOM LOGIN USER (NOT USING RIGHT NOW AS BUILT-IN LOGIN IS BEING USED)
@@ -137,4 +156,18 @@ def index(request):
         'latest_department_list': latest_department_list,
     })
     return HttpResponse(template.render(context))
+'''
+
+'''
+#VIEW TO GIVE ALL INFO IN THE DATABASE
+def index(request):
+    #if user_logged_in:
+        info_list = Info.objects.all().order_by('-organization_name')[:100]
+        template = loader.get_template('logins/index.html')
+        context = RequestContext(request, {
+            'info_list': info_list,
+        })
+        return HttpResponse(template.render(context))
+    #else:
+        #return HttpResponse('<h1>You must login</h1>')
 '''

@@ -51,7 +51,8 @@ class Migration(SchemaMigration):
 
         # Adding model 'CustomUser'
         db.create_table(u'logins_customuser', (
-            (u'user_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
         ))
         db.send_create_signal(u'logins', ['CustomUser'])
 
@@ -138,10 +139,11 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         u'logins.customuser': {
-            'Meta': {'object_name': 'CustomUser', '_ormbases': [u'auth.User']},
+            'Meta': {'object_name': 'CustomUser'},
             'department': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['logins.Department']", 'symmetrical': 'False'}),
             'game': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['logins.Game']", 'symmetrical': 'False'}),
-            u'user_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
         },
         u'logins.department': {
             'Meta': {'object_name': 'Department'},
