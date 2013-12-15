@@ -1,30 +1,19 @@
-<!DOCTYPE html>
-{% load bootstrap_toolkit %}
-{% load url from future %}
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>django-bootstrap-toolkit = Bootstrap support for Django</title>
-    <meta name="description" content="">
-    <meta name="author" content="Dylan Verheul">
-    {% bootstrap_stylesheet_tag %}
-    {% bootstrap_stylesheet_tag "responsive" %}
-    <style type="text/css">
-        body {
-            padding-top: 60px;
-        }
-    </style>
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    {% bootstrap_javascript_tag %}
-    {% block extra_head %}{% endblock %}
-</head>
+{% extends "base.html" %}
+
+{% block navbar %} 
+        <li><a href="/login">Login</a></li>
+{% endblock %}
 
 {% block content %}
+
+<style>
+  form {
+    width: 700px ;
+    margin: 0 auto;
+  }
+</style>
   
-  <h2>Register</h2>
+  <h2 align = "center">Register</h2>
   
   {% for field in form %}
     {{field.error}}
@@ -34,7 +23,7 @@
   <form class="form-{{ layout }}" action="" method="post">{% csrf_token %}
   {{form}}
   
-  <input type="submit" value="Register" class="btn btn-primary" />
+  <input  type="submit" value="Register" class="btn btn-default" />
     
   </form>
   

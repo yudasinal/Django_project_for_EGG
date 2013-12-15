@@ -15,4 +15,5 @@ urlpatterns = patterns('',
     url(r'^register_success/$', views.register_success, name='register_success'),
     url(r'^(?P<info_id>\d+)/delete/$', views.delete_info, name = 'delete'),
     url(r'^(?P<pk>\d+)/edit/$', InfoEdit.as_view(success_url="/logins/"), name='edit'),
+    url(r'^search/$', views.search_infos, name = 'search'),
 )

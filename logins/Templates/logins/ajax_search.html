@@ -1,0 +1,11 @@
+{% if infos.count > 0 %}
+
+{% for info in infos %}
+    <li><a href="{{ info.id }}/">{{ info.organization_name }}</a></li>
+{% endfor %}
+
+{% else %}
+
+<li>None to show!</li>
+
+{% endif %}

@@ -5,10 +5,16 @@
 
 {% block navbar %} 
     <li><a href="/logins">Informations</a></li>
-    {% if perms.logins.change_info %}
+    {% if perms.logins.add_info %}
         <li><a href="/logins/create">Create Information</a></li>
-        <li><a href="/logout">Logout</a></li>
     {% endif %}
+    {% if perms.logins.change_info %}
+        <li><a href="/logins/{{ info_details.id }}/edit/">Edit</a></li>
+    {% endif %}
+    {% if perms.logins.delete_info %}
+        <li><a href="/logins/{{ info_details.id }}/delete/">Delete</a></li>
+    {% endif %}
+        <li><a href="/logout">Logout</a></li>
 {% endblock %}
 
 {% block content %}
@@ -45,7 +51,7 @@
         {% if info_details.comments %}
             <tr>
                 <th>Comments</th>
-                <td>{{ info_details.comemnts }}</td>
+                <td>{{ info_details.comments }}</td>
             </tr>
         {% endif %}
 
@@ -57,26 +63,7 @@
         {% endif %}
     </table>
 
-        <ul>		<!-- Displays bullets, but empty lines -->
-        	
-            <li>{{ info_details.password }}</li>
-            {% for info_details in info_details.department.all %}
-        	<li>{{ info_details }}</li>
-        	{% endfor %}
-            {% for info_details in info_details.game.all %}
-        	<li>{{ info_details }}</li>
-        	{% endfor %}
-        </ul>
-        <br>
-        <p>Go <a href="/logins/">back</a> to the information list</p>
-
-        {% if perms.logins.delete_info %}
-            <p><a href="/logins/{{ info_details.id }}/delete/">Delete</a> this entry</p>
-        {% endif %}
-        {% if perms.logins.change_info %}
-            <p><a href="/logins/{{ info_details.id }}/edit/">Edit</a></p>
-        {% endif %}
-    
+       
 
 {% endblock %}
 

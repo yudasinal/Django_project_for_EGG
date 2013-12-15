@@ -2,6 +2,14 @@
 
 
 
+{% block navbar %} 
+    <li><a href="/logins">Informations</a></li>
+    {% if perms.logins.add_info %}
+        <li><a href="/logins/create">Create Information</a></li>
+    {% endif %}
+        <li><a href="/logout">Logout</a></li>
+{% endblock %}
+
 {% block sidebar %}
 
 

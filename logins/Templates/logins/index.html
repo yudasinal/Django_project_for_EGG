@@ -11,10 +11,10 @@
 
 {% block navbar %} 
     <li><a href="/logins">Informations</a></li>
-    {% if perms.logins.change_info %}
+    {% if perms.logins.add_info %}
         <li><a href="/logins/create">Create Information</a></li>
-        <li><a href="/logout">Logout</a></li>
     {% endif %}
+        <li><a href="/logout">Logout</a></li>
 {% endblock %}
 
 {% block content %}
@@ -24,6 +24,14 @@
         margin: 0 auto;
     }
 </style>
+
+<h3>Search</h3>
+{% csrf_token %}
+<input type="text" id="search" name="search" />
+
+<ul id="search-results">
+
+</ul>
 
 <div style="display: inline-block; border: solid 1px black;">
 

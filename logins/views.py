@@ -28,7 +28,12 @@ def index(request):
         'info_list': info_list,
     })
     template = loader.get_template('logins/index.html')
-    return HttpResponse(template.render(context)) 
+
+    args = {}
+    args.update(csrf(request))
+    
+    args['index'] = Info.objects.all()
+    return HttpResponse(template.render(context), args) 
     
 def logout(request):
     auth.logout(request)
@@ -94,6 +99,19 @@ def delete_info(request, info_id):
 class InfoEdit(UpdateView):
     model = Info
     queryset = Info.objects.all()
+
+def search_infos(request):
+    if request.method == 'POST':    
+        search_text = request.POST['search_text']
+    else:
+        search_text = ''
+    u = request.user
+    custom_user = CustomUser.objects.get(user=u)
+    infos = Info.objects.filter(organization_name__contains = search_text, game__in=custom_user.game.all(), department__in = custom_user.department.all())
+    return render_to_response('logins/ajax_search.html', {'infos' : infos})
+
+
+
 
 '''
 #view

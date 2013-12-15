@@ -1,8 +1,13 @@
+{% load static%}
 <!DOCTYPE html>
 {% load bootstrap_toolkit %}
 {% load url from future %}
 <html lang="en">
 <head>
+    
+    <script src="{% static "assets/js/jquery-2.0.0.min.js" %}"></script>
+    <script src="{% static "assets/js/ajax.js" %}"></script>
+
     <meta charset="utf-8">
     <title>django-bootstrap-toolkit = Bootstrap support for Django</title>
     <meta name="description" content="">
@@ -29,7 +34,7 @@
         <div class="container">
         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="icon-th-list"></span></a>
-        <a href="#" class="brand">European Games Group</a>
+        <a href="/logins" class="brand">European Games Group</a>
         <div class="nav-collapse collapse">
             <ul class="nav pull-right">
                 {% block navbar %} {% endblock %}
