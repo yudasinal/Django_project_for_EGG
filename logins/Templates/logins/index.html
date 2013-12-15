@@ -1,14 +1,6 @@
 {% extends "base.html" %}
 
 
-<h3>Search</h3>
-{% csrf_token %}
-<input type="text" id="search" name="search" />
-
-<ul id="search-results">
-
-</ul>
-
 {% block navbar %} 
     <li><a href="/logins">Informations</a></li>
     {% if perms.logins.add_info %}
@@ -18,11 +10,19 @@
 {% endblock %}
 
 {% block content %}
+
 <style>
-    .center table {
-        display: table;
-        margin: 0 auto;
-    }
+
+    .box {
+    width:300px;
+    height:300px;
+    
+    position:fixed;
+    margin-left:-150px; /* half of width */
+    margin-top:-150px;  /* half of height */
+    top:50%;
+    left:50%;
+} 
 </style>
 
 <h3>Search</h3>
@@ -33,18 +33,16 @@
 
 </ul>
 
-<div style="display: inline-block; border: solid 1px black;">
-
-
+<div class = "box">
     {% if info_list.count > 0 %}
-      
         {% for info in info_list %}
-            <table class="table table-hover center">
-                <th>Name</th>
-                <td><a href="/logins/{{ info.id }}/">{{ info.organization_name }}</a></td>
+            <table class="table table-hover center" border = "1" >
+                <tr>
+                    <th>Department</th>   
+                    <td><a href="/logins/{{ info.id }}/">{{ info.organization_name }}</a></td>
+                </tr>
             </table>
         {% endfor %}
-        </ul>
     {% else %}
         <p>No information is available.</p>
     {% endif %}
@@ -52,6 +50,12 @@
 
 {% endblock %}
 
+        <table class="table table-hover box" border = "1">
+                <tr>
+                    <th>Game</th>   
+                    <td><a href="/logins/{{ info.id }}/">{{ info.organization_name }}</a></td>
+                </tr>
+            </table>
 
 
 

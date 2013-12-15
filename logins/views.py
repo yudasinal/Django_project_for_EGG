@@ -22,7 +22,7 @@ from django.contrib.auth.models import User, UserManager
 def index(request):
     u = request.user
     custom_user = CustomUser.objects.get(user=u)
-    info_list =Info.objects.filter(game__in=custom_user.game.all(), department__in = custom_user.department.all())
+    info_list =Info.objects.filter(game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
     #visible = Info.objects.filter(department__in=customuser.departments.all(), game__in=customuser.games.all())
     context = RequestContext(request, {
         'info_list': info_list,
@@ -107,7 +107,7 @@ def search_infos(request):
         search_text = ''
     u = request.user
     custom_user = CustomUser.objects.get(user=u)
-    infos = Info.objects.filter(organization_name__contains = search_text, game__in=custom_user.game.all(), department__in = custom_user.department.all())
+    infos = Info.objects.filter(organization_name__contains = search_text, game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
     return render_to_response('logins/ajax_search.html', {'infos' : infos})
 
 
