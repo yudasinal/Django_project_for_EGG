@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 #AUTH_USER_MODEL = CustomUser
 
 TEMPLATE_DIRS = (
-    '/Users/yudasinal1/documents/django/egg/mysite/logins/templates'
+    '/Users/yudasinal1/documents/django/git/Django_project_for_EGG/mysite/logins/templates'
 )
 
 
@@ -96,3 +96,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    ('assets', '/Users/yudasinal1/documents/django/git/Django_project_for_EGG/static'),
+)
