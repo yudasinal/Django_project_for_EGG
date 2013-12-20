@@ -16,27 +16,40 @@
     .box {
     width:300px;
     height:300px;
-    
     position:fixed;
     margin-left:-150px; /* half of width */
     margin-top:-150px;  /* half of height */
     top:50%;
     left:50%;
 } 
+
+    #search {
+    position: relative;
+    left: 20px;
+    top: 0;
+    z-index: 1000;
+    width: 160px;
+    margin: 0;
+}
+    
+    #list {
+        position: absolute;
+        top: 235px;
+    }
 </style>
+<div id = "search">
+    <h3>Search</h3>
+    {% csrf_token %}
+    <input type="text" id="search" name="search" />
+    <ul id="search-results">
+    </ul>
+</div>
 
-<h3>Search</h3>
-{% csrf_token %}
-<input type="text" id="search" name="search" />
-
-<ul id="search-results">
-
-</ul>
-
-<div class = "box">
+<div class = "box" id = "list" >
+    <h4 align = "center">Name of the entry</h4>
     {% if info_list.count > 0 %}
         {% for info in info_list %}
-            <table class="table table-hover center" border = "1" >
+            <table class="table table-hover table-bordered table-condensed" border = "1">
                 <tr>
                     <th>Department</th>   
                     <td><a href="/logins/{{ info.id }}/">{{ info.organization_name }}</a></td>
@@ -46,6 +59,10 @@
     {% else %}
         <p>No information is available.</p>
     {% endif %}
+</div>
+
+<div id = "footer" class = "panel-footer">
+    <h4>Copyright hello</h4>
 </div>
 
 {% endblock %}

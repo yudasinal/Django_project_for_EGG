@@ -26,8 +26,10 @@ class Migration(SchemaMigration):
         db.create_table(u'logins_info', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('organization_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('user_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('password', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('url', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
+            ('user_name', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
+            ('password', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
+            ('comments', self.gf('django.db.models.fields.TextField')(max_length=500, blank=True)),
         ))
         db.send_create_signal(u'logins', ['Info'])
 
@@ -122,7 +124,7 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
@@ -157,12 +159,14 @@ class Migration(SchemaMigration):
         },
         u'logins.info': {
             'Meta': {'object_name': 'Info'},
-            'department': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['logins.Department']", 'symmetrical': 'False'}),
-            'game': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['logins.Game']", 'symmetrical': 'False'}),
+            'comments': ('django.db.models.fields.TextField', [], {'max_length': '500', 'blank': 'True'}),
+            'department': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['logins.Department']", 'symmetrical': 'False', 'blank': 'True'}),
+            'game': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['logins.Game']", 'symmetrical': 'False', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'organization_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'user_name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+            'password': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
+            'user_name': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'})
         }
     }
 
