@@ -13,6 +13,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 LOGIN_REDIRECT_URL = '/logins'
 
+DJANGO_ROOT = os.path.dirname(os.path.realpath(__file__))
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
 LOGIN_URL = '/login'
 LOGOUT_URL = '/logout'
 
@@ -37,7 +40,7 @@ ALLOWED_HOSTS = []
 #AUTH_USER_MODEL = CustomUser
 
 TEMPLATE_DIRS = (
-    '/Users/yudasinal1/documents/django/git/Django_project_for_EGG/mysite/logins/templates'
+    os.path.join(SITE_ROOT, 'templates')
 )
 
 
@@ -56,6 +59,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -100,5 +104,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    ('assets', '/Users/yudasinal1/documents/django/git/Django_project_for_EGG/static'),
+    ('assets', os.path.join(SITE_ROOT, 'templates')),
 )
