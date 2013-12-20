@@ -40,7 +40,7 @@ ALLOWED_HOSTS = []
 #AUTH_USER_MODEL = CustomUser
 
 TEMPLATE_DIRS = (
-    os.path.join(SITE_ROOT, 'templates')
+    os.path.join(SITE_ROOT, 'logins/templates')
 )
 
 
