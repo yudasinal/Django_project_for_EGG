@@ -18,6 +18,8 @@ LOGOUT_URL = '/logout'
 
 CUSTOM_USER_MODEL = 'logins.CustomUser'
 
+#ENCRYPTED_FIELDS_KEYDIR = '/Users/yudasinal1/documents/django/git/Django_project_for_EGG/mysite'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
