@@ -13,9 +13,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 LOGIN_REDIRECT_URL = '/logins'
 
-DJANGO_ROOT = os.path.dirname(os.path.realpath(__file__))
-SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
-
 LOGIN_URL = '/login'
 LOGOUT_URL = '/logout'
 
@@ -40,7 +37,7 @@ ALLOWED_HOSTS = []
 #AUTH_USER_MODEL = CustomUser
 
 TEMPLATE_DIRS = (
-    os.path.join(SITE_ROOT, '..','logins', 'Templates')
+    '/Users/yudasinal1/documents/django/git/Django_project_for_EGG/mysite/logins/templates'
 )
 
 
@@ -59,7 +56,6 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,8 +75,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'logins',
+        'USER': 'yudasinal',
+        'PASSWORD': 'yudasinal',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 
@@ -104,5 +104,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    ('assets', os.path.join(SITE_ROOT, 'templates')),
+    ('assets', '/Users/yudasinal1/documents/django/git/Django_project_for_EGG/static'),
 )
