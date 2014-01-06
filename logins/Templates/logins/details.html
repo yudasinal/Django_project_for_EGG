@@ -25,42 +25,42 @@
         <tr>
             <th>Department</th>   
             <td>{% for info_details in info_details.department.all %}
-            {{ info_details }}
+            {{ info_details }},
             {% endfor %}</td>
         </tr>
         <tr>
             <th>Game</th>   
             <td>{% for info_details in info_details.game.all %}
-            {{ info_details }}
+            {{ info_details }},
             {% endfor %}</td>
         </tr>
-        {% if info_details.user_name %}
+
             <tr>
                 <th>User Name</th>
                 <td>{{ info_details.user_name }}</td>
             </tr>
-        {% endif %}
+        
 
-        {% if info_details.password %}
+        
             <tr>
                 <th>Password</th>
                 <td>{{ info_details.password }}</td>
             </tr>
-        {% endif %}
+        
 
-        {% if info_details.comments %}
+        
             <tr>
                 <th>Comments</th>
                 <td>{{ info_details.comments }}</td>
             </tr>
-        {% endif %}
+        
 
-        {% if info_details.url %}
+        
             <tr>
                 <th>Url</th>
                 <td>{{ info_details.url }}</td>
             </tr>
-        {% endif %}
+        
     </table>
 
        

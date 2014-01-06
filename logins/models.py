@@ -30,4 +30,12 @@ class CustomUser(models.Model):
 	user = models.OneToOneField(User)
 
 
+'''
+class CustomUser(AbstractBaseUser):
+    department = models.ManyToManyField(Department)
+    game = models.ManyToManyField(Game)
+    email = models.EmailField(max_length=255, unique=True, db_index=True)
 
+
+    USERNAME_FIELD = 'email'
+'''

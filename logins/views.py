@@ -101,13 +101,12 @@ class InfoEdit(UpdateView):
     queryset = Info.objects.all()
 
 def search_infos(request):
+    infos = []
     if request.method == 'POST':    
         search_text = request.POST['search_text']
-    else:
-        search_text = ''
-    u = request.user
-    custom_user = CustomUser.objects.get(user=u)
-    infos = Info.objects.filter(organization_name__contains = search_text, game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
+        u = request.user
+        custom_user = CustomUser.objects.get(user=u)
+        infos = Info.objects.filter(organization_name__contains = search_text, game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
     return render_to_response('logins/ajax_search.html', {'infos' : infos})
 
 
