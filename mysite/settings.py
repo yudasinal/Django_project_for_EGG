@@ -15,6 +15,7 @@ LOGIN_REDIRECT_URL = '/logins'
 
 LOGIN_URL = '/login'
 LOGOUT_URL = '/logout'
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 CUSTOM_USER_MODEL = 'logins.CustomUser'
 
@@ -37,7 +38,7 @@ ALLOWED_HOSTS = []
 #AUTH_USER_MODEL = CustomUser
 
 TEMPLATE_DIRS = (
-    '/Users/yudasinal1/documents/django/git/Django_project_for_EGG/mysite/logins/templates'
+    os.path.join(SITE_ROOT, '..','logins', 'Templates')
 )
 
 
@@ -104,5 +105,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    ('assets', '/Users/yudasinal1/documents/django/git/Django_project_for_EGG/static'),
+    ('assets', os.path.join(SITE_ROOT, '..', 'static')),
 )
