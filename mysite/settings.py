@@ -24,8 +24,7 @@ CUSTOM_USER_MODEL = 'logins.CustomUser'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^1a6w&zr_$$rgdoc(i!7wa=l0hbfy8c&mmalb-&vo^q2bi4)b&'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
