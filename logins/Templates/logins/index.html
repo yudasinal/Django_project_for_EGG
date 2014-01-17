@@ -61,8 +61,8 @@
                 </tr>
             </table>
         {% endfor %}
-    {% else %}
-        <p>No information is available.</p>
+    {% elif info_list == none %}
+        <p>No informations are available.</p>
     {% endif %}
 </div>
 

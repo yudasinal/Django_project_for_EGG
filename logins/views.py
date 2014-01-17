@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext, loader
 from forms import InfoForm
@@ -9,6 +9,7 @@ from django.contrib import messages
 from forms import MyRegistrationForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
+from django.core.exceptions import ObjectDoesNotExist
 
 
 from logins.models import Department, Info, Game, CustomUser
@@ -21,7 +22,43 @@ from django.contrib.auth.models import User, UserManager
 @login_required()
 def index(request):
     u = request.user
-    custom_user = CustomUser.objects.get(user=u)
+
+    
+    
+
+    try:
+        custom_user = CustomUser.objects.get(user=u)
+        info_list =Info.objects.filter(game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
+        #visible = Info.objects.filter(department__in=customuser.departments.all(), game__in=customuser.games.all())
+        context = RequestContext(request, {
+        'info_list': info_list,
+        })
+        template = loader.get_template('logins/index.html')
+
+        args = {}
+        args.update(csrf(request))
+            
+        args['index'] = Info.objects.all()
+        return HttpResponse(template.render(context), args) 
+
+    except ObjectDoesNotExist:
+        info_list = none;
+        context = RequestContext(request, {
+        'info_list': info_list,
+        })
+        template = loader.get_template('logins/index.html')
+        args = {}
+        args.update(csrf(request))
+            
+        args['index'] = Info.objects.all()
+        return HttpResponse(template.render(context), args)
+        
+
+'''
+    if not custom_user.is_admin_approved:
+        return HttpResponse("User not approved yet")
+        '''
+'''
     if custom_user.department is False and custom_user.game is False:
         return HttpResponseRedirect('/logins/register_success')
     else:
@@ -37,6 +74,7 @@ def index(request):
         
         args['index'] = Info.objects.all()
         return HttpResponse(template.render(context), args) 
+'''
     
 def logout(request):
     auth.logout(request)
