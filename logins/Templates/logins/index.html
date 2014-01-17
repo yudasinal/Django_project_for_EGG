@@ -2,7 +2,7 @@
 
 
 {% block navbar %} 
-    <li><a href="/logins">Informations</a></li>
+    <li class = "active"><a href="/logins">Informations</a></li>
     {% if perms.logins.add_info %}
         <li><a href="/logins/create">Create Information</a></li>
     {% endif %}
@@ -28,9 +28,14 @@
     left: 20px;
     top: 0;
     z-index: 1000;
-    width: 160px;
+    width: 140px;
     margin: 0;
 }
+
+    #search {
+        margin-top: 10px;
+        height: 18px;
+    }
     
     #list {
         position: absolute;

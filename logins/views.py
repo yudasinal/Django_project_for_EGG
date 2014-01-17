@@ -22,18 +22,21 @@ from django.contrib.auth.models import User, UserManager
 def index(request):
     u = request.user
     custom_user = CustomUser.objects.get(user=u)
-    info_list =Info.objects.filter(game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
-    #visible = Info.objects.filter(department__in=customuser.departments.all(), game__in=customuser.games.all())
-    context = RequestContext(request, {
-        'info_list': info_list,
-    })
-    template = loader.get_template('logins/index.html')
+    if custom_user.department is False and custom_user.game is False:
+        return HttpResponseRedirect('/logins/register_success')
+    else:
+        info_list =Info.objects.filter(game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
+        #visible = Info.objects.filter(department__in=customuser.departments.all(), game__in=customuser.games.all())
+        context = RequestContext(request, {
+            'info_list': info_list,
+        })
+        template = loader.get_template('logins/index.html')
 
-    args = {}
-    args.update(csrf(request))
-    
-    args['index'] = Info.objects.all()
-    return HttpResponse(template.render(context), args) 
+        args = {}
+        args.update(csrf(request))
+        
+        args['index'] = Info.objects.all()
+        return HttpResponse(template.render(context), args) 
     
 def logout(request):
     auth.logout(request)
@@ -108,6 +111,9 @@ def search_infos(request):
         custom_user = CustomUser.objects.get(user=u)
         infos = Info.objects.filter(organization_name__contains = search_text, game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
     return render_to_response('logins/ajax_search.html', {'infos' : infos})
+
+def no_game_no_department(request):
+    return render_to_response('logins/register_success.html')
 
 
 

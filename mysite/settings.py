@@ -38,7 +38,7 @@ ALLOWED_HOSTS = []
 #AUTH_USER_MODEL = CustomUser
 
 TEMPLATE_DIRS = (
-    os.path.join(SITE_ROOT, '..','logins', 'Templates')
+    os.path.join(SITE_ROOT, '..','logins', 'Templates',)
 )
 
 
@@ -75,7 +75,6 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -96,7 +95,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    ('assets', os.path.join(SITE_ROOT, '..', 'static')),
+    ('assets', os.path.join(SITE_ROOT, '..', 'static', 'assets')),
 )
 
 try:
