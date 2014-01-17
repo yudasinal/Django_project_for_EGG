@@ -37,8 +37,8 @@ TEMPLATE_DEBUG = True
 #AUTH_USER_MODEL = CustomUser
 
 TEMPLATE_DIRS = (
-    os.path.join(SITE_ROOT, '..','logins', 'Templates',)
-)
+    os.path.join(SITE_ROOT, '..','logins', 'Templates')
+,)
 
 
 # Application definition
