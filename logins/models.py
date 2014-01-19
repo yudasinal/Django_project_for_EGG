@@ -13,21 +13,22 @@ class Game(models.Model):
         return self.name_of_the_game
 
 class Info(models.Model):
-	organization_name = models.CharField(max_length=200, unique = True)
+	title = models.CharField(max_length=200, unique = True)
 	url = models.URLField(max_length = 200, blank = True)
-	user_name = models.CharField(max_length=200, blank = True)
+	name = models.CharField(max_length=200, blank = True)
 	password = models.CharField(max_length=200, blank = True)
 	comments = models.TextField(max_length = 500, blank = True)
 	game = models.ManyToManyField(Game, blank = False)
 	department = models.ManyToManyField(Department, blank = False)
 	def __unicode__(self):
-		 return self.organization_name+ ': '+ 'user name: ' +self.user_name+ ', '+ 'password: ' + self.password
+		 return self.title+ ': '+ 'user name: ' +self.name+ ', '+ 'password: ' + self.password
 
 
 class CustomUser(models.Model):
 	department = models.ManyToManyField(Department)
 	game = models.ManyToManyField(Game)
 	user = models.OneToOneField(User)
+	is_admin_approved = models.BooleanField(default=False)
 
 
 '''
