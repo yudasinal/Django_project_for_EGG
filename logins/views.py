@@ -10,6 +10,8 @@ from forms import MyRegistrationForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import User, UserManager
+from django.core.mail import send_mail
 
 
 from logins.models import Department, Info, Game, CustomUser
@@ -22,10 +24,9 @@ from django.contrib.auth.models import User, UserManager
 @login_required()
 def index(request):
     u = request.user
-
-    
-    
-
+    custom_user = CustomUser.objects.get(user=u)
+    #if not custom_user.is_admin_approved == False:
+        #return HttpResponseRedirect('/logins/register_success')
     try:
         custom_user = CustomUser.objects.get(user=u)
         info_list =Info.objects.filter(game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
@@ -42,7 +43,7 @@ def index(request):
         return HttpResponse(template.render(context), args) 
 
     except ObjectDoesNotExist:
-        info_list = none;
+        info_list = None;
         context = RequestContext(request, {
         'info_list': info_list,
         })
@@ -97,6 +98,8 @@ def register_user(request):
     return render_to_response('logins/register.html', args)
 
 def register_success(request):
+    #send_mail('Subject here', 'Here is the message.', 'yudasinal@gmail.com',
+    #['yudasinal1@gmail.com'], fail_silently=False)
     return render_to_response('logins/register_success.html')
 
 #VIEW TO DISPLAY THE NAME AND THE PASSWORD OF THE Info
@@ -147,11 +150,10 @@ def search_infos(request):
         search_text = request.POST['search_text']
         u = request.user
         custom_user = CustomUser.objects.get(user=u)
-        infos = Info.objects.filter(organization_name__contains = search_text, game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
+        infos = Info.objects.filter(title__contains = search_text, game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
     return render_to_response('logins/ajax_search.html', {'infos' : infos})
 
-def no_game_no_department(request):
-    return render_to_response('logins/register_success.html')
+
 
 
 
