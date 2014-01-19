@@ -14,7 +14,7 @@ class InfoDInline(admin.StackedInline):
 
 class InfoAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,              {'fields':['organization_name', 'url', 'user_name', 'password', 'comments']}),
+        (None,              {'fields':['title', 'url', 'name', 'password', 'comments']}),
     ]
     inlines = [InfoInline, InfoDInline]
 
