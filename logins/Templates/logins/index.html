@@ -56,12 +56,12 @@
         {% for info in info_list %}
             <table class="table table-hover table-bordered table-condensed" border = "1">
                 <tr>
-                    <th>Department</th>   
-                    <td><a href="/logins/{{ info.id }}/">{{ info.organization_name }}</a></td>
+                    <th>Title</th>   
+                    <td><a href="/logins/{{ info.id }}/">{{ info.title }}</a></td>
                 </tr>
             </table>
         {% endfor %}
-    {% elif info_list == none %}
+    {% elif info_list == None %}
         <p>No informations are available.</p>
     {% endif %}
 </div>
@@ -73,7 +73,7 @@
         <table class="table table-hover box" border = "1">
                 <tr>
                     <th>Game</th>   
-                    <td><a href="/logins/{{ info.id }}/">{{ info.organization_name }}</a></td>
+                    <td><a href="/logins/{{ info.id }}/">{{ info.title }}</a></td>
                 </tr>
             </table>
 
