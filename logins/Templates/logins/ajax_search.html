@@ -1,7 +1,7 @@
 {% if infos.count > 0 %}
 
 	{% for info in infos %}
-	    <li><a href="{{ info.id }}/">{{ info.organization_name }}</a></li>
+	    <li><a href="{{ info.id }}/">{{ info.title }}</a></li>
 	{% endfor %}
 
 {% else %}
