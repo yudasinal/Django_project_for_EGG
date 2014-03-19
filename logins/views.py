@@ -55,27 +55,6 @@ def index(request):
         return HttpResponse(template.render(context), args)
         
 
-'''
-    if not custom_user.is_admin_approved:
-        return HttpResponse("User not approved yet")
-        '''
-'''
-    if custom_user.department is False and custom_user.game is False:
-        return HttpResponseRedirect('/logins/register_success')
-    else:
-        info_list =Info.objects.filter(game__in=custom_user.game.all(), department__in = custom_user.department.all()).distinct()
-        #visible = Info.objects.filter(department__in=customuser.departments.all(), game__in=customuser.games.all())
-        context = RequestContext(request, {
-            'info_list': info_list,
-        })
-        template = loader.get_template('logins/index.html')
-
-        args = {}
-        args.update(csrf(request))
-        
-        args['index'] = Info.objects.all()
-        return HttpResponse(template.render(context), args) 
-'''
     
 def logout(request):
     auth.logout(request)
@@ -157,58 +136,6 @@ def search_infos(request):
 
 
 
-
-'''
-#view
-def edit_info(request, info_id):
-    if request.method == 'POST':
-        info = Info.objects.get(id=info_id)
-        form = EditInfo(request.POST,instance=info)
-        if form.is_valid():
-            info = form.save(commit=False)
-            info.user = request.user
-            info.is_active = True
-            info.save()
-            return render_to_response('logins/edit.html', args)
-        else:
-            info = Info.objects.get(id=info_id)
-            form = EditInfo(instance=info )
-            return render_to_response('forsale.html', locals(), context_instance=RequestContext(request))
-
-'''
-
-'''
-def detail(request, department_id):
-    return HttpResponse("You're looking at department %s." % department_id)
-
-
-def games(request, department_id):
-    return HttpResponse("You're looking at the games of department %s." % department_id)
-'''
-
-'''
-//CUTOM LOGIN USER (NOT USING RIGHT NOW AS BUILT-IN LOGIN IS BEING USED)
-
-def login_user(request):
-    state = "Please log in below..."
-    username = password = ''
-    if request.POST:
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                state = "You're successfully logged in!"
-            else:
-                state = "Your account is not active, please contact the site admin."
-        else:
-            state = "Your username and/or password were incorrect."
-
-    return render_to_response('auth.html',{'state':state, 'username': username},
-                                 context_instance=RequestContext(request))
-'''
 
 '''
 #VIEW TO GIVE ALL INFO IN THE DATABASE
