@@ -34,21 +34,4 @@ admin.site.register(Department)
 admin.site.register(Game)
 admin.site.register(Info, InfoAdmin)
 
-'''
-class CustomUserAdmin(admin.ModelAdmin): 
-    list_display = ('first_name', 'last_name', 'department', 'game')   #How to display ManyToMany? list_display does not handle it
-admin.site.register(CustomUser, CustomUserAdmin)
-
-'''
-
-'''
-class DepartmentAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None,               {'fields': ['name']}),
-    ]
-    inlines = [InfoInline]
-     
-    list_filter = ['name']
-    search_fields = ['name']
-'''
 
