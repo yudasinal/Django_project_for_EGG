@@ -55,11 +55,12 @@ def index(request):
         return HttpResponse(template.render(context), args)
         
 
-    
+# Logout view
 def logout(request):
     auth.logout(request)
     return render_to_response('logout.html')
 
+# Registering a user
 def register_user(request):
     if request.method == 'POST':
         form = MyRegistrationForm(request.POST)
@@ -76,9 +77,8 @@ def register_user(request):
     
     return render_to_response('logins/register.html', args)
 
+# Successful regestration
 def register_success(request):
-    #send_mail('Subject here', 'Here is the message.', 'yudasinal@gmail.com',
-    #['yudasinal1@gmail.com'], fail_silently=False)
     return render_to_response('logins/register_success.html')
 
 #VIEW TO DISPLAY THE NAME AND THE PASSWORD OF THE Info
@@ -90,6 +90,7 @@ def detail(request, info_id):
         })
     return HttpResponse(template.render(context))
 
+# View to create a new information
 def create(request):
     if request.POST:
         form = InfoForm(request.POST, request.FILES)
@@ -109,6 +110,7 @@ def create(request):
     
     return render_to_response('logins/create_info.html', args)
 
+# Deletion of information
 def delete_info(request, info_id):
     info_delete = Info.objects.get(id = info_id)
     template = loader.get_template('logins/delete.html')
@@ -119,10 +121,13 @@ def delete_info(request, info_id):
     return HttpResponse(template.render(context))
 
 
+# Editing an information
 class InfoEdit(UpdateView):
     model = Info
     queryset = Info.objects.all()
 
+
+# Searching the informations
 def search_infos(request):
     infos = []
     if request.method == 'POST':    
@@ -133,31 +138,3 @@ def search_infos(request):
     return render_to_response('logins/ajax_search.html', {'infos' : infos})
 
 
-
-
-
-
-'''
-#VIEW TO GIVE ALL INFO IN THE DATABASE
-def index(request):
-    latest_department_list = Department.objects.all().order_by('-name')[:5]
-    template = loader.get_template('logins/index.html')
-    context = RequestContext(request, {
-        'latest_department_list': latest_department_list,
-    })
-    return HttpResponse(template.render(context))
-'''
-
-'''
-#VIEW TO GIVE ALL INFO IN THE DATABASE
-def index(request):
-    #if user_logged_in:
-        info_list = Info.objects.all().order_by('-organization_name')[:100]
-        template = loader.get_template('logins/index.html')
-        context = RequestContext(request, {
-            'info_list': info_list,
-        })
-        return HttpResponse(template.render(context))
-    #else:
-        #return HttpResponse('<h1>You must login</h1>')
-'''
