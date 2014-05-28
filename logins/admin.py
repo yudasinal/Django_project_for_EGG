@@ -4,14 +4,17 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
 
+# Adding game into the admin interface
 class InfoInline(admin.StackedInline):
     model = Info.game.through
     extra = 1
 
+# Adding department to admin interface
 class InfoDInline(admin.StackedInline):
     model = Info.department.through
     extra = 1
 
+# Customizing the fields
 class InfoAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,              {'fields':['title', 'url', 'name', 'password', 'comments']}),
