@@ -3,19 +3,21 @@ from models import Info, CustomUser
 from django.contrib.auth.models import User, UserManager
 from django.contrib.auth.forms import UserCreationForm
 
+# Form for adding a new information
 class InfoForm(forms.ModelForm):  
 
     class Meta:
         model = Info
         fields = ('title', 'url', 'name', 'password', 'comments', 'department', 'game')
 
+# Form to edit an existing information
 class EditInfo(forms.ModelForm):  
 
     class Meta:
         model = Info
         fields = ('title', 'url', 'name', 'password', 'comments', 'department', 'game')
 
-#CAN'T ADD GAME AND DEPARTMENT :(   
+# Form to register a user  
 class MyRegistrationForm(UserCreationForm):         
     email = forms.EmailField(required=True)
     first_name = forms.CharField(max_length = '200')
@@ -25,22 +27,6 @@ class MyRegistrationForm(UserCreationForm):
         model = User
         fields = ('first_name', 'last_name', 'username', 'email')
 
-    '''    
-    def save(self, commit=True):
-        user = super(MyRegistrationForm, self).save(commit=False)
-        user.username = self.cleaned_data['username']
-        user.first_name = self.cleaned_data['first_name']       
-        user.last_name = self.cleaned_data['last_name']
-        user.email = self.cleaned_data['email']
-        user.department = self.cleaned_data['department']
-        user.set_password(self.cleaned_data['password1'])
-
-
-    if commit:
-        user.save()
-            
-        return user
-
-    '''
+  
 
     
