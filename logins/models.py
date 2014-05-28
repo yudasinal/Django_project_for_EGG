@@ -1,21 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User, UserManager
 
-// Model for the department
+# Model for the department
 class Department(models.Model):
     name = models.CharField(max_length=200)
     def __unicode__(self):  
         return self.name
 
 
-// Model for the game
+# Model for the game
 class Game(models.Model):
     name_of_the_game = models.CharField(max_length=200)
     def __unicode__(self):  
         return self.name_of_the_game
 
 
-// Model for the information stored
+# Model for the information stored
 class Info(models.Model):
 	title = models.CharField(max_length=200, unique = True)
 	url = models.URLField(max_length = 200, blank = True)
@@ -27,7 +27,7 @@ class Info(models.Model):
 	def __unicode__(self):
 		 return self.title+ ': '+ 'user name: ' +self.name+ ', '+ 'password: ' + self.password
 
-// Model for the custom user
+# Model for the custom user
 class CustomUser(models.Model):
 	department = models.ManyToManyField(Department)
 	game = models.ManyToManyField(Game)
